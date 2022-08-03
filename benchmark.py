@@ -35,6 +35,8 @@ import torch
 import numpy as np
 import time
 import os
+import torchvision
+import timm      
 from fvcore.nn import FlopCountAnalysis, flop_count_table, parameter_count
 from argparse import ArgumentParser
 from models import SimpleCNN, TransformerBlock
@@ -114,8 +116,8 @@ def timeit_cpu(dummy_input, torch_model=None, onnx_model=None,\
 
 def get_args():
     parser = ArgumentParser(description='EfficientDL')    
-    # for testing resnet18 model
-    parser.add_argument('--resnet', action='store_true', default=False, help='use resnet')
+    # for testing torchvision and timm models
+    parser.add_argument('--model',  default=None, help='name of timm or torchvision model')
     
     # for testing SimpleCNN
     parser.add_argument('--group', action='store_true', \
@@ -149,12 +151,52 @@ def get_args():
     parser.add_argument('--device', type=str, default=choices[0], \
                         choices=choices, help='device for inference')
 
+    # number of repetitions
+    parser.add_argument('--repetitions', type=int, default=100, help='number of repetitions')
+
+    # list all models
+    parser.add_argument('--list-models', action='store_true', default=False, help='list all models')
+    # find a model
+    parser.add_argument('--find-model', type=str, default=None, help='find a model')
     args = parser.parse_args()
     return args
+
+def get_torchvision_models():
+    models = list(torchvision.models.__dict__.keys())
+    torchvision_models = []
+    for model in models:
+        if model.islower() and "__" not in model and model[0] != "_":
+            torchvision_models.append(model)
+
+    return torchvision_models
+
+def get_timm_models():
+    timm_models = timm.list_models(pretrained=True)
+    return timm_models
 
 if __name__ == '__main__':
     args = get_args()
     device = torch.device(args.device)
+    torchvision_models = get_torchvision_models()
+    timm_models = get_timm_models()
+    if args.list_models:
+        for model in torchvision_models:
+            print("torchvision.models." +  model)
+        print(80 * '-')
+        for model in timm_models:
+            print("timm:", model)
+        exit(0)
+    elif args.find_model:
+        if args.find_model in torchvision_models:
+            print("Found: torchvision.models." + args.find_model)
+            exit(0)
+        elif args.find_model in timm_models:
+            print("Found in timm models:", args.find_model)
+            exit(0)
+        else:
+            print("model not found")
+            exit(1)
+
     if args.attention:
         # ViT Tiny ImageNet1k configuration in Timm
         seqlen = (args.image_size // args.patch_size) ** 2
@@ -164,9 +206,18 @@ if __name__ == '__main__':
         
         dummy_input = torch.randn(args.batch_size, seqlen, args.embed_dim, \
                                   dtype=torch.float).to(device)
-    elif args.resnet:
-        import torchvision
-        model = torchvision.models.resnet18(pretrained=True).to(device)
+    elif args.model is not None:
+        if args.model in torchvision_models:
+            print(f"Using torchvision model: {args.model}")
+            model_name = "torchvision.models." + args.model
+            model = eval(model_name)(pretrained=True).to(device)
+        elif args.model in timm_models:
+            print(f"Using timm model: {args.model}")
+            model = timm.create_model(args.model, pretrained=True).to(device)
+        else:
+            print("Model not found in torchvision or timm", args.model)
+            exit(0)
+        #model = torchvision.models.resnet18(pretrained=True).to(device)
         dummy_input = torch.randn(args.batch_size, 3, args.image_size, args.image_size, \
                                   dtype=torch.float,).to(device)
     else:
@@ -205,7 +256,8 @@ if __name__ == '__main__':
                               )
         
         device = 'tensorrt' if args.tensorrt else args.device
-        timeit_cpu(dummy_input, torch_model=model, onnx_model=args.onnx_model, device=device)
+        timeit_cpu(dummy_input, torch_model=model, onnx_model=args.onnx_model, \
+                   device=device, repetitions=args.repetitions)
         os.remove(args.onnx_model)
         exit(0)
     
@@ -231,7 +283,7 @@ if __name__ == '__main__':
         exit(0)
         
 
-    timeit_cpu(dummy_input, torch_model=model, device=device)
+    timeit_cpu(dummy_input, torch_model=model, device=device, repetitions=args.repetitions)
     if args.verbose:
         y = model(dummy_input)
         print("In shape:", dummy_input.shape)

@@ -230,7 +230,7 @@ if __name__ == '__main__':
     model.eval()
     flops = FlopCountAnalysis(model, dummy_input)
     param = parameter_count(model)
-    print("FLOPs: {:,}".format(flops.total()))
+    print("FLOPS: {:,}".format(flops.total()))
     print("Parameters: {:,}".format(param[""]))
 
     if args.verbose:

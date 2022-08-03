@@ -55,7 +55,7 @@ Warning: need super user access
 sudo apt install python3-libnvinfer-dev python3-libnvinfer 
 ```
 
-## Sample benchmarking of `resnet18` using `timm`
+## Sample benchmarking of `resnet18`
 
 - GPU + ONNX + TensorRT
 ```

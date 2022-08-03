@@ -59,27 +59,27 @@ sudo apt install python3-libnvinfer-dev python3-libnvinfer
 
 - GPU + ONNX + TensorRT
 ```
-python3 benchmark.py --resnet --onnx-model model.onnx --tensorrt
+python3 benchmark.py --model resnet18 --onnx-model model.onnx --tensorrt
 ```
 
 - GPU + ONNX
 ```
-python3 benchmark.py --resnet --onnx-model model.onnx
+python3 benchmark.py --model resnet18 --onnx-model model.onnx
 ```
 
 - GPU 
 ```
-python3 benchmark.py --resnet --onnx-model
+python3 benchmark.py --model resnet18 
 ```
 
 - CPU 
 ```
-python3 benchmark.py --resnet --onnx-model --device cpu
+python3 benchmark.py --model resnet18  --device cpu
 ```
 
 - CPU + ONNX
 ```
-python3 benchmark.py --resnet --onnx-model --device cpu --onnx-model model.onnx
+python3 benchmark.py --model resnet18 --device cpu --onnx-model model.onnx
 ```
 
 ## List all supported models

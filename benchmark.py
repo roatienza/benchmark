@@ -5,8 +5,13 @@ Install the following packages.
 pip3 install fvcore
 pip3 install onnxruntime-gpu
 
+# if no gpu, use cpu
+pip3 install onnxruntime
+
 CUDA:
+# remove the old
 conda uninstall cudatoolkit
+# update to the new cudnn
 conda install cudnn
 
 TensorRT:
@@ -18,13 +23,18 @@ python3 -m pip install --upgrade nvidia-tensorrt
 
 (Optional) Torch-tensort
 pip install torch-tensorrt -f https://github.com/NVIDIA/Torch-TensorRT/releases
+# need super user access
 sudo apt install python3-libnvinfer-dev python3-libnvinfer 
+
+TODO:
+Try on nvidia docker containers
 
 '''
 
 import torch 
 import numpy as np
 import time
+import os
 from fvcore.nn import FlopCountAnalysis, flop_count_table, parameter_count
 from argparse import ArgumentParser
 from models import SimpleCNN, TransformerBlock
@@ -167,6 +177,14 @@ if __name__ == '__main__':
                                   dtype=torch.float,).to(device)
 
     model.eval()
+    flops = FlopCountAnalysis(model, dummy_input)
+    param = parameter_count(model)
+    print("FLOPs: {:,}".format(flops.total()))
+    print("Parameters: {:,}".format(param[""]))
+
+    if args.verbose:
+        print(flop_count_table(flops))
+
     if args.onnx_model is not None:
         # set model parameters to non-trainable, it seems that torch.onnx.export() 
         # does not recognize torch.no_grad() action
@@ -188,6 +206,7 @@ if __name__ == '__main__':
         
         device = 'tensorrt' if args.tensorrt else args.device
         timeit_cpu(dummy_input, torch_model=model, onnx_model=args.onnx_model, device=device)
+        os.remove(args.onnx_model)
         exit(0)
     
     elif args.tensorrt:
@@ -212,15 +231,8 @@ if __name__ == '__main__':
         exit(0)
         
 
-    flops = FlopCountAnalysis(model, dummy_input)
-    param = parameter_count(model)
-    print("FLOPs: {:,}".format(flops.total()))
-    print("Parameters: {:,}".format(param[""]))
-
-    if args.verbose:
-        print(flop_count_table(flops))
-    
     timeit_cpu(dummy_input, torch_model=model, device=device)
-    print("In shape:", dummy_input.shape)
-    y = model(dummy_input)
-    print("Out shape:", y.shape)
+    if args.verbose:
+        y = model(dummy_input)
+        print("In shape:", dummy_input.shape)
+        print("Out shape:", y.shape)

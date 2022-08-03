@@ -3,3 +3,4 @@ torchvision
 numpy
 timm
 fvcore
+onnxruntime-gpu

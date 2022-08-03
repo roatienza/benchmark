@@ -5,7 +5,7 @@ Model inference efficiency is a big concern in deploying deep learning models. E
 
 ## FLOPS, Parameters and Latency of ResNet18
 
-Experiment performed on RTX 6000
+Experiment performed on RTX 6000. Assuming 1k classes, `224x224x3` image and batch size of `1`.
 ```
 FLOPs: 1,819,065,856
 Parameters: 11,689,512

@@ -1,5 +1,26 @@
-# benchmark
-Utilities to perform deep learning models benchmarking
+# `benchmark`
+Utilities to perform deep learning models benchmarking.
+
+Model inference efficiency is a big concern in deploying deep learning models. Efficiency is quantified as the Pareto-optimality of the target metric (eg accuracy) and model number of parameters, computational complexity like FLOPS and latency. `benchmark` is a tool to compute parameters, FLOPS and latency. The sample usage below shows how to determine the number of parameters and FLOPS. Also indicated are the different latency improvement as a function of accelerators and model format. The fastest is when ONNX and TensorRT are utilized.
+
+## FLOPS, Parameters and Latency of ResNet18
+
+Experiment performed on RTX 6000
+```
+FLOPs: 1,819,065,856
+Parameters: 11,689,512
+```
+
+| **Accelerator** | **Latency (usec)** | Speed up (x) |
+| :--- | ---: | --: |
+| CPU | 10,706 | 1 |
+| CPU + ONNX | 3,990 | 2.7 |
+| GPU | 1,982 | 5.4 |
+| GPU + ONNX | 1,218 | 8.8 |
+| GPU + ONNX + TensorRT | 917 | 11.7 |
+
+
+
 
 ## Install requirements
 ```

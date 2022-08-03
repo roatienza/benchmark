@@ -82,5 +82,17 @@ python3 benchmark.py --resnet --onnx-model --device cpu
 python3 benchmark.py --resnet --onnx-model --device cpu --onnx-model model.onnx
 ```
 
+## List all supported models
+All `torchvision.models` and `timm` models will be listed:
+
+```
+python3 benchmark.py --list-models
+```
+
+## Find a specific model
+
+```
+python3 benchmark.py --find-model xcit_tiny_24_p16_224
+```
 
 

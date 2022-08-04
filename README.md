@@ -59,12 +59,12 @@ sudo apt install python3-libnvinfer-dev python3-libnvinfer
 
 - GPU + ONNX + TensorRT
 ```
-python3 benchmark.py --model resnet18 --onnx-model model.onnx --tensorrt
+python3 benchmark.py --model resnet18 --onnx --tensorrt
 ```
 
 - GPU + ONNX
 ```
-python3 benchmark.py --model resnet18 --onnx-model model.onnx
+python3 benchmark.py --model resnet18 --onnx
 ```
 
 - GPU 
@@ -79,7 +79,7 @@ python3 benchmark.py --model resnet18  --device cpu
 
 - CPU + ONNX
 ```
-python3 benchmark.py --model resnet18 --device cpu --onnx-model model.onnx
+python3 benchmark.py --model resnet18 --device cpu --onnx
 ```
 
 ## Compute model accuracy on ImageNet1k
@@ -105,15 +105,15 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 ## Other models 
 - Latency in usec
 
-| **Accelerator** | **Resnet50** | **MobileV2** | **MobileV3** | **ShuffleV2** | **Squeeze** | **SwinV2** | **Deit** | **Eff0** | **CNext** | **RegNet4Y** |
-| :--- | ---: | --: | ---: | --: | ---: | --: | --: | --: | --: | --: |
-| CPU | 29,840 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 | 14,089 | 33,182 | 11,068 |
-| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 8,356 | 28,055 | 1,990 |
-| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 5,817| 3,588 | 5,886 |
-| GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 | 2,789 | 1,525|
-| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 | 2,630 | 1,137|
+| **Accelerator** | **R50** | **MV2** | **MV3** | **SV2** | **Sq** | **SwV2** | **De** | **Ef0** | **CNext** | **RN4X** | **RN64X** |
+| :--- | ---: | --: | ---: | --: | ---: | --: | --: | --: | --: | --: | --: |
+| CPU | 29,840 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 | 14,089 | 33,182 | 11,068 | 41,301 | 
+| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 8,356 | 28,055 | 1,990 | 14,358 |
+| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 5,817| 3,588 | 5,886 | 6,050 |
+| GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 | 2,789 | 1,525| 3,280 |
+| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 | 2,630 | 1,137| 2,283 |
 
-ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small`, Shuffle - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`, Deit - `deit_tiny_patch16_224`, Eff0 - `efficientnet_b0` , CNext - `convnext_tiny`
+R50 - `resnet50`, MV2 - `mobilenet_v2`, MV3 - `mobilenet_v3_small`, SV2 - `shufflenet_v2_x0_5`, Sq - `squeezenet1_0`, SwV2 - `swinv2_cr_tiny_ns_224`, De - `deit_tiny_patch16_224`, Ef0 - `efficientnet_b0` , CNext - `convnext_tiny`, RN4X - `regnetx_004` , RN64X - ``
 
 - Parameters and FLOPS
 
@@ -129,5 +129,7 @@ ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small
 | `deit_tiny_patch16_224` | 5.7 | 1.3  |  72.02 | 91.10 |
 | `efficientnet_b0` | 5.3 | 0.4 | 77.67 |  93.58 |
 | `convnext_tiny` | 28.6 | 4.5 | 82.13 | 95.95 |
-| `regnetx_004` | 5.2 | 0.4 | 72.30 | 90.59 | 
+| `regnetx_004` | 5.2 | 0.4 | 72.30 | 90.59 |
+| `regnetx_064` | 26.2 | 6.5 | 78.90 | 94.44 |
+
 

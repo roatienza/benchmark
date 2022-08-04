@@ -104,7 +104,7 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 | CPU + ONNX | 3,990 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  |
 | GPU | 1,982 | 3,452 | 3,689 |  4,135 | 1,741 | 6,963 |
 | GPU + ONNX | 1,218 | 1,107 | 1,128 | 1,392 | 851 | 3,731 |
-| GPU + ONNX + TensorRT | 917 | 670 | 634 | 404 | 443 | 3,327 |
+| GPU + ONNX + TensorRT | 917 | 670 | 570 | 404 | 443 | 3,327 |
 
 ResNet18 - `resnet18`, MobileNetV2 - `mobilenet_v2`, MobileNetV3 - `mobilenet_v3_small`, ShuffleNet - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`
 

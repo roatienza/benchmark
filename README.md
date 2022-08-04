@@ -105,15 +105,15 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 ## Other models 
 - Latency in usec
 
-| **Accelerator** | **Resnet18** | **MobilenetV2** | **MobilenetV3** | **ShufflenetV2** | **Squeeze** | **SwinV2** | 
-| :--- | ---: | --: | ---: | --: | ---: | --: |
-| CPU | 10,706 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 |
-| CPU + ONNX | 3,990 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  |
-| GPU | 1,982 | 3,452 | 3,689 |  4,135 | 1,741 | 6,963 |
-| GPU + ONNX | 1,218 | 1,107 | 1,128 | 1,392 | 851 | 3,731 |
-| GPU + ONNX + TensorRT | 917 | 670 | 570 | 404 | 443 | 3,327 |
+| **Accelerator** | **Resnet18** | **MobileV2** | **MobileV3** | **ShuffleV2** | **Squeeze** | **SwinV2** | **Deit** | 
+| :--- | ---: | --: | ---: | --: | ---: | --: | --: |
+| CPU | 10,706 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 |
+| CPU + ONNX | 3,990 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 |
+| GPU | 1,982 | 3,452 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 |
+| GPU + ONNX | 1,218 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 |
+| GPU + ONNX + TensorRT | 917 | 670 | 570 | 404 | 443 | 3,327 | 1,170 |
 
-ResNet18 - `resnet18`, MobileNetV2 - `mobilenet_v2`, MobileNetV3 - `mobilenet_v3_small`, ShuffleNet - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`
+ResNet18 - `resnet18`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small`, Shuffle - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`, Deit - `deit_tiny_patch16_224`
 
 - Parameters and FLOPS
 
@@ -125,5 +125,6 @@ ResNet18 - `resnet18`, MobileNetV2 - `mobilenet_v2`, MobileNetV3 - `mobilenet_v3
 | `shufflenet_v2_x0_5` | 1.4 | 0.04 | 60.55 | 81.74 |
 | `squeezenet1_0` | 1.2 | 0.8 | 58.10  | 80.42 |
 | `swinv2_cr_tiny_ns_224` | 28.3 | 4.7 | 81.54 | 95.77 |
+| `deit_tiny_patch16_224` | 5.7 | 1.3  |  72.02 | 91.10 |
 
 

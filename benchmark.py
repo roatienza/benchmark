@@ -36,11 +36,13 @@ import numpy as np
 import time
 import os
 import torchvision
-import timm      
+import timm     
 from fvcore.nn import FlopCountAnalysis, flop_count_table, parameter_count
 from argparse import ArgumentParser
 from models import SimpleCNN, TransformerBlock
-
+from dataloaders import ClassifierLoader
+from metrics import AverageMeter, accuracy
+from ui import progress_bar
 
 def to_numpy(tensor):
     return tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
@@ -114,6 +116,29 @@ def timeit_cpu(dummy_input, torch_model=None, onnx_model=None,\
     print("(CPU Timer) Std infer time: {0:.1f} usec".format(std_syn))
 
 
+def evaluate_model(model, loader, device='cpu'):
+    # evaluate the model
+    model.eval()
+    top1 = AverageMeter()
+    top5 = AverageMeter()
+    with torch.no_grad():
+        for i, data in enumerate(loader):
+            x, target = data
+            x = x.to(device)
+            target = target.to(device)
+
+            y = model(x)
+            acc1, acc5 = accuracy(y, target, (1, 5))
+            top1.update(acc1[0], x.size(0))
+            top5.update(acc5[0], x.size(0))
+
+            progress_bar(i,
+                         len(loader),
+                         'Accuracy: Top1: %0.2f%%, Top5: %0.2f%%'
+                         % (top1.avg, top5.avg))
+
+
+
 def get_args():
     parser = ArgumentParser(description='EfficientDL')    
     # for testing torchvision and timm models
@@ -158,6 +183,9 @@ def get_args():
     parser.add_argument('--list-models', action='store_true', default=False, help='list all models')
     # find a model
     parser.add_argument('--find-model', type=str, default=None, help='find a model')
+    # compute accuracy
+    parser.add_argument('--compute-accuracy', action='store_true', \
+                        default=False, help='compute model accuracy on ImageNet1k')
     args = parser.parse_args()
     return args
 
@@ -232,6 +260,11 @@ if __name__ == '__main__':
     param = parameter_count(model)
     print("FLOPS: {:,}".format(flops.total()))
     print("Parameters: {:,}".format(param[""]))
+
+    if args.compute_accuracy:
+        loader = ClassifierLoader().test 
+        evaluate_model(model, loader, device=device)
+        exit(0)
 
     if args.verbose:
         print(flop_count_table(flops))

@@ -108,10 +108,10 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 | **Accelerator** | **Resnet50** | **MobileV2** | **MobileV3** | **ShuffleV2** | **Squeeze** | **SwinV2** | **Deit** | **Eff0** |
 | :--- | ---: | --: | ---: | --: | ---: | --: | --: | --: |
 | CPU | 29,840 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 | 14,089 | 
-| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 10,392 |
-| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 6,047|
+| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 8,356 |
+| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 5,817|
 | GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 |
-| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,222 |
+| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 |
 
 ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small`, Shuffle - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`, Deit - `deit_tiny_patch16_224`, Eff0 - `efficientnet_b0` 
 

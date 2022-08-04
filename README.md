@@ -105,15 +105,15 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 ## Other models 
 - Latency in usec
 
-| **Accelerator** | **Resnet50** | **MobileV2** | **MobileV3** | **ShuffleV2** | **Squeeze** | **SwinV2** | **Deit** | **Eff0** |
-| :--- | ---: | --: | ---: | --: | ---: | --: | --: | --: |
-| CPU | 29,840 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 | 14,089 | 
-| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 8,356 |
-| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 5,817|
-| GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 |
-| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 |
+| **Accelerator** | **Resnet50** | **MobileV2** | **MobileV3** | **ShuffleV2** | **Squeeze** | **SwinV2** | **Deit** | **Eff0** | **CNext** | **RegNet4Y** |
+| :--- | ---: | --: | ---: | --: | ---: | --: | --: | --: | --: | --: |
+| CPU | 29,840 | 11,870 | 6,498 | 6,607 | 8,717 | 52,120 | 14,952 | 14,089 | 33,182 | 11,068 |
+| CPU + ONNX | 10,666 | 2,564 | 4,484 | 2,479 | 3,136 | 50,094  | 10,484 | 8,356 | 28,055 | 1,990 |
+| GPU | 1,982 | 4,781 | 3,689 |  4,135 | 1,741 | 6,963 | 3,526 | 5,817| 3,588 | 5,886 |
+| GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 | 2,789 | 1,525|
+| GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 | 2,630 | 1,137|
 
-ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small`, Shuffle - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`, Deit - `deit_tiny_patch16_224`, Eff0 - `efficientnet_b0` 
+ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small`, Shuffle - `shufflenet_v2_x0_5`, Squeeze - `squeezenet1_0`, SwinV2 - `swinv2_cr_tiny_ns_224`, Deit - `deit_tiny_patch16_224`, Eff0 - `efficientnet_b0` , CNext - `convnext_tiny`
 
 - Parameters and FLOPS
 
@@ -128,5 +128,6 @@ ResNet50 - `resnet50`, MobileV2 - `mobilenet_v2`, MobileV3 - `mobilenet_v3_small
 | `swinv2_cr_tiny_ns_224` | 28.3 | 4.7 | 81.54 | 95.77 |
 | `deit_tiny_patch16_224` | 5.7 | 1.3  |  72.02 | 91.10 |
 | `efficientnet_b0` | 5.3 | 0.4 | 77.67 |  93.58 |
-
+| `convnext_tiny` | 28.6 | 4.5 | 82.13 | 95.95 |
+| `regnetx_004` | 5.2 | 0.4 | 72.30 | 90.59 | 
 

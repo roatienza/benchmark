@@ -113,7 +113,7 @@ python3 benchmark.py --find-model xcit_tiny_24_p16_224
 | GPU + ONNX | 2,715 | 1,107 | 1,128 | 1,392 | 851 | 3,731 | 1,650 | 2,175 | 2,789 | 1,525| 3,280 |
 | GPU + ONNX + TensorRT | 1,881 | 670 | 570 | 404 | 443 | 3,327 | 1,170 | 1,250 | 2,630 | 1,137| 2,283 |
 
-R50 - `resnet50`, MV2 - `mobilenet_v2`, MV3 - `mobilenet_v3_small`, SV2 - `shufflenet_v2_x0_5`, Sq - `squeezenet1_0`, SwV2 - `swinv2_cr_tiny_ns_224`, De - `deit_tiny_patch16_224`, Ef0 - `efficientnet_b0` , CNext - `convnext_tiny`, RN4X - `regnetx_004` , RN64X - ``
+R50 - `resnet50`, MV2 - `mobilenet_v2`, MV3 - `mobilenet_v3_small`, SV2 - `shufflenet_v2_x0_5`, Sq - `squeezenet1_0`, SwV2 - `swinv2_cr_tiny_ns_224`, De - `deit_tiny_patch16_224`, Ef0 - `efficientnet_b0` , CNext - `convnext_tiny`, RN4X - `regnetx_004` , RN64X - `regnetx_064`
 
 - Parameters and FLOPS
 

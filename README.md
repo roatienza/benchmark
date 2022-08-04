@@ -82,6 +82,13 @@ python3 benchmark.py --model resnet18  --device cpu
 python3 benchmark.py --model resnet18 --device cpu --onnx-model model.onnx
 ```
 
+## Compute model accuracy on ImageNet1k
+Assuming imagenet dataset folder is `/data/imagenet`. Else modify the location using `--imagenet` option.
+
+```
+python3 benchmark.py --model resnet18 --compute-accuracy
+```
+
 ## List all supported models
 All `torchvision.models` and `timm` models will be listed:
 
@@ -110,13 +117,13 @@ ResNet18 - `resnet18`, MobileNetV2 - `mobilenet_v2`, MobileNetV3 - `mobilenet_v3
 
 - Parameters and FLOPS
 
-| **Model** | **Parameters (M)** | **GFLOPS** |
-| :--- | ---: | --: |
-| `resnet18` | 11.7 | 1.8 | 
-| `mobilenet_v2` | 3.5 | 0.3 |
-| `mobilenet_v3_small` | 2.5 | 0.06 |
-| `shufflenet_v2_x0_5` | 1.4 | 0.04 |
-| `squeezenet1_0` | 1.2 | 0.8 |
-| `swinv2_cr_tiny_ns_224` | 28.3 | 4.7 |
+| **Model** | **Parameters (M)** | **GFLOPS** | **Top1 (%)** | **Top5 (%)** |
+| :--- | ---: | --: | --: |  --: |
+| `resnet18` | 11.7 | 1.8 | 69.76 | 89.08 | 
+| `mobilenet_v2` | 3.5 | 0.3 | 71.87 | 90.29  |
+| `mobilenet_v3_small` | 2.5 | 0.06 | 67.67 | 87.41 |
+| `shufflenet_v2_x0_5` | 1.4 | 0.04 | 60.55 | 81.74 |
+| `squeezenet1_0` | 1.2 | 0.8 | 58.10  | 80.42 |
+| `swinv2_cr_tiny_ns_224` | 28.3 | 4.7 | 81.54 | 95.77 |
 
 

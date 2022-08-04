@@ -49,7 +49,7 @@ def to_numpy(tensor):
 
 def compare_results(torch_out, ort_outs):
     # compare ONNX Runtime and PyTorch results
-    return np.testing.assert_allclose(to_numpy(torch_out), ort_outs[0], rtol=1e-03, atol=1e-05)
+    return np.testing.assert_allclose(to_numpy(torch_out), ort_outs[0], rtol=1e-02, atol=1e-03)
 
 
 # for some reason the timing using cpu is smaller than the timing using cuda
@@ -186,6 +186,8 @@ def get_args():
     # compute accuracy
     parser.add_argument('--compute-accuracy', action='store_true', \
                         default=False, help='compute model accuracy on ImageNet1k')
+    # imagenet folder
+    parser.add_argument('--imagenet', type=str, default="/data/imagenet", help='imagenet folder')
     args = parser.parse_args()
     return args
 
@@ -262,7 +264,7 @@ if __name__ == '__main__':
     print("Parameters: {:,}".format(param[""]))
 
     if args.compute_accuracy:
-        loader = ClassifierLoader().test 
+        loader = ClassifierLoader(root=args.imagenet).test 
         evaluate_model(model, loader, device=device)
         exit(0)
 

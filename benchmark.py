@@ -167,7 +167,7 @@ def get_args():
     parser.add_argument('--verbose', action='store_true', default=False, help='verbose')
 
     # choice of acceleration
-    parser.add_argument('--onnx-model', default=None, help='use onnx if not None')
+    parser.add_argument('--onnx', action='store_true', default=False, help='use onnx')
     # use tensorrt in onnxruntime, --onnx-model is required
     parser.add_argument('--tensorrt', action='store_true', \
                         default=False, help='use tensorrt, --onnx-model is required')
@@ -271,16 +271,17 @@ if __name__ == '__main__':
     if args.verbose:
         print(flop_count_table(flops))
 
-    if args.onnx_model is not None:
+    if args.onnx:
         # set model parameters to non-trainable, it seems that torch.onnx.export() 
         # does not recognize torch.no_grad() action
+        onnx_model = "model.onnx"
         for param in model.parameters():
             param.requires_grad = False
 
         with torch.no_grad():
             torch.onnx.export(model,              
                               dummy_input,
-                              args.onnx_model,
+                              onnx_model,
                               # store the trained parameter weights inside the model file
                               export_params=True,
                               # whether to execute constant folding for optimization   
@@ -291,9 +292,9 @@ if __name__ == '__main__':
                               )
         
         device = 'tensorrt' if args.tensorrt else args.device
-        timeit_cpu(dummy_input, torch_model=model, onnx_model=args.onnx_model, \
+        timeit_cpu(dummy_input, torch_model=model, onnx_model=onnx_model, \
                    device=device, repetitions=args.repetitions)
-        os.remove(args.onnx_model)
+        os.remove(onnx_model)
         exit(0)
     
     elif args.tensorrt:

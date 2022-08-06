@@ -155,8 +155,9 @@ def get_args():
     # for testing a transformer block
     parser.add_argument('--attention', action='store_true', default=False, help='use attention')
     parser.add_argument('--embed-dim', type=int, default=192, help='embedding size')
+    parser.add_argument('--expansion', type=int, default=1, help='hidden feature expansion factor')
     parser.add_argument('--patch-size', type=int, default=16, help='patch size')
-    parser.add_argument('--num-heads', type=int, default=3, help='number of heads')
+    parser.add_argument('--num-heads', type=int, default=1, help='number of heads')
     parser.add_argument('--reduction-factor', type=int, default=1, help='reduction factor')
     parser.add_argument('--layer-norm', action='store_true', default=False, help='use layer norm')
  
@@ -230,7 +231,7 @@ if __name__ == '__main__':
     if args.attention:
         # ViT Tiny ImageNet1k configuration in Timm
         seqlen = (args.image_size // args.patch_size) ** 2
-        model = TransformerBlock(in_features=args.embed_dim, hidden_features=args.embed_dim*4, \
+        model = TransformerBlock(in_features=args.embed_dim, hidden_features=args.embed_dim*args.expansion, \
                                  num_heads=args.num_heads, reduction_factor=args.reduction_factor, \
                                  layer_norm=args.layer_norm, residual=args.residual).to(device)
         

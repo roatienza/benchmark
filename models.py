@@ -61,9 +61,9 @@ class SimpleCNN(nn.Module):
         y = self.conv1(x)
         if self.separable:
             y = self.conv2(y)
-        # concatenate x and y
         
         if self.residual:
+            # concatenate x and y
             y = torch.cat((x, y), 1)
         return y
 

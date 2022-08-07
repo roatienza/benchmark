@@ -13,13 +13,11 @@ Parameters: 11,689,512
 
 | **Accelerator** | **Latency (usec)** | Speed up (x) |
 | :--- | ---: | --: |
-| CPU | 10,706 | 1 |
-| CPU + ONNX | 3,990 | 2.7 |
+| CPU | 8,550 | 1 |
+| CPU + ONNX | 3,830 | 2.7 |
 | GPU | 1,982 | 5.4 |
 | GPU + ONNX | 1,218 | 8.8 |
 | GPU + ONNX + TensorRT | 917 | 11.7 |
-
-
 
 
 ## Install requirements

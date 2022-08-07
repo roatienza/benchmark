@@ -13,13 +13,11 @@ Parameters: 11,689,512
 
 | **Accelerator** | **Latency (usec)** | Speed up (x) |
 | :--- | ---: | --: |
-| CPU | 10,706 | 1 |
-| CPU + ONNX | 3,990 | 2.7 |
+| CPU | 8,550 | 1 |
+| CPU + ONNX | 3,830 | 2.7 |
 | GPU | 1,982 | 5.4 |
 | GPU + ONNX | 1,218 | 8.8 |
 | GPU + ONNX + TensorRT | 917 | 11.7 |
-
-
 
 
 ## Install requirements
@@ -120,7 +118,7 @@ R50 - `resnet50`, MV2 - `mobilenet_v2`, MV3 - `mobilenet_v3_small`, SV2 - `shuff
 | **Model** | **Parameters (M)** | **GFLOPS** | **Top1 (%)** | **Top5 (%)** |
 | :--- | ---: | --: | --: |  --: |
 | `resnet18` | 11.7 | 1.8 | 69.76 | 89.08 | 
-| `resnet50` | 25.6 | 4.1 | 76.15 | 92.87 | 
+| `resnet50` | 25.6 | 4.1 | 80.11 | 94.49 | 
 | `mobilenet_v2` | 3.5 | 0.3 | 71.87 | 90.29  |
 | `mobilenet_v3_small` | 2.5 | 0.06 | 67.67 | 87.41 |
 | `shufflenet_v2_x0_5` | 1.4 | 0.04 | 60.55 | 81.74 |

@@ -6,11 +6,12 @@ from __future__ import division
 from __future__ import print_function
 
 import torch
+import os
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from torch.utils.data import ConcatDataset
+from timm.data.transforms_factory import create_transform
 
-import os
 
 # mean and std fr https://github.com/pytorch/examples/blob/master/imagenet/main.py
 imagenet_normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -45,12 +46,15 @@ imagenet_test_transform = transforms.Compose([
             imagenet_normalize,
         ])
 
+imagenet_train_transform_timm = create_transform(224, is_training=True,)
+imagenet_test_transform_timm = create_transform(224, is_training=False,)
+
 class ClassifierLoader:
     def __init__(self,
                  root='/data/imagenet',
                  batch_size=128, 
                  dataset=datasets.ImageNet, 
-                 transform={'train':imagenet_train_transform, 'test':imagenet_test_transform},
+                 transform={'train':imagenet_train_transform_timm, 'test':imagenet_test_transform_timm},
                  device=None,
                  dataset_name="imagenet",
                  shuffle_test=False,

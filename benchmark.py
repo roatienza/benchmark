@@ -238,13 +238,13 @@ if __name__ == '__main__':
         dummy_input = torch.randn(args.batch_size, seqlen, args.embed_dim, \
                                   dtype=torch.float).to(device)
     elif args.model is not None:
-        if args.model in torchvision_models:
+        if args.model in timm_models:
+            print(f"Using timm model: {args.model}")
+            model = timm.create_model(args.model, pretrained=True, exportable=True).to(device)
+        elif args.model in torchvision_models:
             print(f"Using torchvision model: {args.model}")
             model_name = "torchvision.models." + args.model
             model = eval(model_name)(pretrained=True).to(device)
-        elif args.model in timm_models:
-            print(f"Using timm model: {args.model}")
-            model = timm.create_model(args.model, pretrained=True).to(device)
         else:
             print("Model not found in torchvision or timm", args.model)
             exit(0)
@@ -276,8 +276,8 @@ if __name__ == '__main__':
         # set model parameters to non-trainable, it seems that torch.onnx.export() 
         # does not recognize torch.no_grad() action
         onnx_model = "model.onnx"
-        for param in model.parameters():
-            param.requires_grad = False
+        #for param in model.parameters():
+        #    param.requires_grad = False
 
         with torch.no_grad():
             torch.onnx.export(model,              
